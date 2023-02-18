@@ -165,48 +165,7 @@ app.post('/api/v2/upload', function ( request, response) {
         console.log('fileName: ', fileName);
     })
 })
-const GitHubStrategy = require('passport-github2').Strategy;
-var session = require('express-session');
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
-    done(null, obj);
-});
-var GITHUB_CLIENT_ID = "9aa2403755778790d926";
-var GITHUB_CLIENT_SECRET = "25f0a7b1336a65eb51b08d4ee097fef198ee8c2d";
-passport.use(new GitHubStrategy({
-        clientID: GITHUB_CLIENT_ID,
-        clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/github/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-        console.log('profile: ', profile);
-        process.nextTick(function () {
-            return done(null, profile);
-        });
-    }
-));
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.get('/auth/github',
-    passport.authenticate('github', { scope: [ 'user:email' ] }),
-    function(req, res){
-    res.send({success: true})
-    });
 
-app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    function(req, res) {
-        res.redirect('/');
-    });
-
-app.get('/',
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    function(req, res) {
-        res.redirect('/');
-    });
 const runApp = async ()=>{
     try {
         // await sequelize.authenticate();
