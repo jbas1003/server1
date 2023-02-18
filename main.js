@@ -9,7 +9,7 @@ const requestAPI = request;
 const formidable = require("formidable");
 const { Sequelize } = require('sequelize');
 const passport = require("passport");
-const sequelize = new Sequelize('mp2', 'wd32p', '7YWFvP8kFyHhG3eF', {
+const sequelize = new Sequelize('Basco', 'wd32p', '7YWFvP8kFyHhG3eF', {
     host: '20.211.37.87',
     dialect: 'mysql'
 });
@@ -25,9 +25,6 @@ const User = sequelize.define('user', {
         type: Sequelize.STRING
     },
     email: {
-        type: Sequelize.STRING
-    },
-    profile_picture: {
         type: Sequelize.STRING
     }
 },{
